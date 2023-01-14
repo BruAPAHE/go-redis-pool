@@ -177,7 +177,7 @@ func (p *Pool) Pipeline() (redis.Pipeliner, error) {
 	if _, ok := p.connFactory.(*ShardConnFactory); ok {
 		return nil, errShardPoolUnSupported
 	}
-	conn, _ := p.connFactory.getMasterConn()
+	conn, _ := p.connFactory.getSlaveConn()
 	return conn.Pipeline(), nil
 }
 
@@ -503,7 +503,7 @@ func (p *Pool) Keys(ctx context.Context, key string) *redis.StringSliceCmd {
 }
 
 func (p *Pool) Do(ctx context.Context, args ...interface{}) *redis.Cmd {
-	conn, err := p.connFactory.getSlaveConn("")
+	conn, err := p.connFactory.getSlaveConn()
 	if err != nil {
 		return newErrorCmd(err)
 	}
