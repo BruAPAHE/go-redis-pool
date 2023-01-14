@@ -502,6 +502,14 @@ func (p *Pool) Keys(ctx context.Context, key string) *redis.StringSliceCmd {
 	return conn.Keys(ctx, key)
 }
 
+func (p *Pool) Do(ctx context.Context, args ...interface{}) *redis.Cmd {
+	conn, err := p.connFactory.getSlaveConn("")
+	if err != nil {
+		return newErrorCmd(err)
+	}
+	return conn.Do(ctx, args)
+}
+
 func (p *Pool) Exists(ctx context.Context, keys ...string) (int64, error) {
 	if _, ok := p.connFactory.(*HAConnFactory); ok {
 		conn, _ := p.connFactory.getMasterConn()
