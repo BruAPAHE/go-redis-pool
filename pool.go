@@ -507,7 +507,7 @@ func (p *Pool) Do(ctx context.Context, args ...interface{}) *redis.Cmd {
 	if err != nil {
 		return newErrorCmd(err)
 	}
-	return conn.Do(ctx, args)
+	return conn.Do(ctx, args...)
 }
 
 func (p *Pool) Exists(ctx context.Context, keys ...string) (int64, error) {
