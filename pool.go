@@ -494,6 +494,14 @@ func (p *Pool) Dump(ctx context.Context, key string) *redis.StringCmd {
 	return conn.Dump(ctx, key)
 }
 
+func (p *Pool) Keys(ctx context.Context, key string) *redis.StringSliceCmd {
+	conn, err := p.connFactory.getSlaveConn(key)
+	if err != nil {
+		return newErrorStringSliceCmd(err)
+	}
+	return conn.Keys(ctx, key)
+}
+
 func (p *Pool) Exists(ctx context.Context, keys ...string) (int64, error) {
 	if _, ok := p.connFactory.(*HAConnFactory); ok {
 		conn, _ := p.connFactory.getMasterConn()
