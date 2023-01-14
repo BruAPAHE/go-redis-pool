@@ -2,7 +2,6 @@ package pool
 
 import (
 	"errors"
-	"log"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -226,7 +225,6 @@ func (pool *clientPool) getConn(key ...string) (*redis.Client, error) {
 		return alives[pool.rand.Intn(n)].redisCli, nil
 	case PollByRoundRobin:
 		pool.ind = (pool.ind + 1) % n
-		log.Println("addr name: ", alives[pool.ind].redisCli.Options().Addr)
 		return alives[pool.ind].redisCli, nil
 	case PollByWeight:
 		r := pool.rand.Int63n(weightRanges[n-1])
