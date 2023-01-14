@@ -3,7 +3,6 @@ module github.com/BruAPAHE/go-redis-pool
 go 1.19
 
 require (
-	github.com/bitleak/go-redis-pool/v2 v2.1.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/gomega v1.24.2

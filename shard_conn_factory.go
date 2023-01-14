@@ -5,7 +5,7 @@ import (
 	"hash/crc32"
 	"sync"
 
-	"github.com/bitleak/go-redis-pool/v2/hashkit"
+	"github.com/BruAPAHE/go-redis-pool/hashkit"
 	"github.com/go-redis/redis/v8"
 )
 
